@@ -5,18 +5,25 @@ Program to detect objects using Tensorflow Detection API and YOLO on a video str
 ## Folder structure
 
     .
-    ├── object_detection            # The actual code to detect objects
-    │   ├── feed.py                 # Gets a video feed, predicts ands shows the detections
-    │   ├── core                    # Helper functions from Tensorflow Detection API
-    │   ├── data                    # Extra content (now Pickle of coco categories)
-    │   └── utils                   # Helper functions from Tensorflow Detection API
+    ├── object_detection                    # The actual code to detect objects
+    │   ├── feed.py                         # Gets a video feed, predicts ands shows the detections
+    │   ├── core                            # Helper functions from Tensorflow Detection API
+    │   ├── data                            # Extra content (now Pickle of coco categories)
+    │   └── utils                           # Helper functions from Tensorflow Detection API
     │
-    ├── tf_serve                    # Dockerfile and models for Tensorflow Serving
-    │   ├── config                  # Configs
-    |   |   └── model_config        # Config file for the specific models
-    │   ├── models                  # Neural networks, exported as Tensorflow Serving models
-    │   └── Dockerfile              # Custom build of the Tensorflow/Serving image
+    ├── tf_serve                            # Dockerfile and models for Tensorflow Serving
+    │   ├── config                          # Configs
+    |   |   └── model_config                # Config file for the specific models
+    │   ├── models                          # Neural networks, exported as Tensorflow Serving models
+    │   └── Dockerfile                      # Custom build of the Tensorflow/Serving image
     │
+    ├── yolo                                # YOLO object detection, without Tensorflow Serving
+    │   ├── model                           # Modelfiles
+    |   |   ├── coco.names                  # Coco category names
+    |   |   └── darknet_yolov3_tiny.pb      # Converted model from YoloV3
+    │   ├── utils                           # Helper functions from TODO
+    |   |   └── utils.py                    # Functions to create detection boxes
+    │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
 
 
 ## Dependencies
