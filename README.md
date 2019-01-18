@@ -98,10 +98,11 @@ docker build -t object-detect .
 Run the Docker image.
 
 ```bash
-docker run --name object-detect -h 0.0.0.0 --network="host" --rm object-detect:latest
+docker run --name object-detect -h 0.0.0.0 --network="host" --rm -d object-detect:latest
 # --name        For easy referencing this container
 # --network     Setup network as host
 # --rm          Removes container when it is stopped
+# -d            Daemonize the docker container
 # -h            Setup hostname, so we can access it using localhost
 ```
 
