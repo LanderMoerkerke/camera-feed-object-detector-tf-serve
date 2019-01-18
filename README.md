@@ -34,14 +34,15 @@
 
 This build is based on Tensorflow Object Detection API which depends on the following libraries:
 
-*   Pillow
-*   Jupyter notebook
-*   Matplotlib
-*   Tensorflow (>=1.9.0)
-*   Requests
-*   OpenCV
-*   Pipenv
-*   Docker
+- Python
+    *   Pillow
+    *   Jupyter notebook
+    *   Matplotlib
+    *   Tensorflow (>=1.9.0)
+    *   Requests
+    *   OpenCV
+    *   Pipenv
+- Docker
 
 Luckily all these Python packages are all declared inside a Pipenv.
 
@@ -66,7 +67,7 @@ To setup Pipenv and install all the dependencies:
 pipenv install -d
 ```
 
-All the Python packages and Python itself should now be installed inside an virtual environment.
+All the Python packages and the correct version of Python itself (3.6) should now be installed inside an virtual environment.
 
 
 ## Usage
@@ -75,7 +76,7 @@ All the Python packages and Python itself should now be installed inside an virt
 
 Install [Docker](https://www.docker.com/products/docker-desktop).
 
-Build the Docker image using the Dockerfile. The name of the image is object-detect.
+Build the Docker image using the configurations inside the Dockerfile. The name of the image is object-detect.
 
 ```bash
 cd tf-serve
@@ -85,14 +86,14 @@ docker build -t object-detect .
 Run the Docker image.
 
 ```bash
+docker run --name object-detect -h 0.0.0.0 --network="host" --rm object-detect:latest
 # --name        For easy referencing this container
 # --network     Setup network as host
 # --rm          Removes container when it is stopped
 # -h            Setup hostname, so we can access it using localhost
-docker run --name object-detect -h 0.0.0.0 --network="host" --rm object-detect:latest
 ```
 
-Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We chose for REST because it is the simplest to setup. Inside the models directory there are three exported models from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).. These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
+Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We used REST in favor of gRPC because it is the simplest to setup. Inside the models directory there are three exported models from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
 
 To check if the container is running properly:
 
@@ -100,8 +101,8 @@ To check if the container is running properly:
 docker ps
 
 # OUTPUT:
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-fb18e78e71aa        object-detect       "tensorflow_model_se…"   11 seconds ago      Up 10 seconds                           object-detect
+> CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+> fb18e78e71aa        object-detect       "tensorflow_model_se…"   11 seconds ago      Up 10 seconds                           object-detect
 ```
 
 Now that Tensorflow Serving is working correctly we can start detecting some objects! We can use Tensorflow Detection API with Tensorflow Serving or YoloV3.
