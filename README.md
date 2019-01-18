@@ -2,6 +2,23 @@
 
 Program to detect objects using Tensorflow Detection API and YOLO on a video stream. The scripts are written in Python3.
 
+## Folder structure
+
+    .
+    ├── object_detection        # The actual code to detect objects
+    │   ├── feed.py             # Gets a video feed, predicts ands shows the detections
+    │   ├── core                # Helper functions from Tensorflow Detection API
+    │   ├── data                # Extra content (now Pickle of coco categories)
+    │   └── utils               # Helper functions from Tensorflow Detection API
+    │
+    ├── tf_serve                # Dockerfile and models for Tensorflow Serving
+    │   ├── config              # Configs
+    |   |   └── model_config    # Config file for the specific models
+    │   ├── models              # Neural networks, exported as Tensorflow Serving models
+    │   └── Dockerfile          # Custom build of the Tensorflow/Serving image
+    │
+
+
 ## Dependencies
 
 This build is based on Tensorflow Object Detection API which depends on the following libraries:
@@ -52,7 +69,7 @@ Install [Docker](https://www.docker.com/products/docker-desktop).
 Build the Docker image using the Dockerfile. The name of the image is object-detect.
 
 ```bash
-cd TF-Serve
+cd tf-serve
 docker build -t object-detect .
 ```
 
@@ -61,6 +78,8 @@ Run the Docker image.
 ```bash
 docker run object-detect
 ```
+
+Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We chose for REST because it is the simplest to setup. Inside the models directory
 
 ### Object detection script
 
