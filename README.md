@@ -2,7 +2,7 @@
 > Program to detect objects using Tensorflow Detection API and YOLO on a video stream. The scripts are written in Python3. For YoloV3, the model is stored locally so we don't need to utilize Tensorflow Serving.
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Folder structure
 
@@ -28,7 +28,7 @@
     │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
     │
     ├── Pipfile                             # Defenition of our Python environment
-    └── config                              # Defenition of our Python environment
+    └── config                              # Defenitions of the used parameters
 
 ## Dependencies
 
@@ -46,8 +46,6 @@ This build is based on Tensorflow Object Detection API which depends on the foll
 Luckily all these Python packages are all declared inside a Pipenv.
 
 ## Installation
-
-### General
 
 Clone this repo:
 
