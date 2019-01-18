@@ -24,7 +24,8 @@ Luckily all these Python packages are all declared inside a Pipenv.
 Clone this repo:
 
 ```bash
-git clone https://github.com/MoerkerkeLander/GITNAME.git
+git clone https://github.com/MoerkerkeLander/camera-feed-object-detector-tf-serve.git
+cd camera-feed-object-detector-tf-serve
 ```
 
 To enable the Python environment we use Pipenv. If you don't have this installed, we can use pip:
@@ -36,7 +37,6 @@ pip install pipenv
 To setup Pipenv and install all the dependencies:
 
 ```bash
-cd GITNAME
 pipenv install -d
 ```
 
