@@ -115,8 +115,9 @@ Firstly, enter the virtual environment inside the root of the repository:
 pipenv shell
 ```
 
-Now we can execute the different Python scripts.\
-**Note**: these scripts are linked to my setup of cameras. To link your cameras we propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file.
+Now we can execute the different Python scripts.
+
+**Note**: these scripts are linked to my setup of cameras. To link your cameras we propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file. We defined these parameters previously inside the config file.
 
 #### Tensorflow Object Detection API
 
