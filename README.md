@@ -91,7 +91,7 @@ Here you can configure which video feed or video file the script will be analysi
 
 **Note**: I created my own config file which is linked to my setup of cameras.
 To link your cameras I propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file.
-The keys are already predefined, so just fill in the corresponding value appropriately.
+The keys are already predefined, so just fill in the corresponding value appropriately inside the config_template.ini.
 
 ### Tensorflow Serving
 
