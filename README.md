@@ -84,6 +84,15 @@ All the Python packages and the correct version of Python itself (3.6) should no
 
 ## Usage
 
+### Config file
+
+To share parameters between our different scripts I created a config.ini file.
+Here you can configure which video feed or video file the script will be analysing and which model it will use.
+
+**Note**: I created my own config file which is linked to my setup of cameras.
+To link your cameras I propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file.
+The keys are already predefined, so just fill in the corresponding value appropriately.
+
 ### Tensorflow Serving
 
 Install [Docker](https://www.docker.com/products/docker-desktop).
@@ -105,7 +114,7 @@ docker run --name object-detect -h 0.0.0.0 --network="host" --rm -d object-detec
 # -h            Setup hostname, so we can access it using localhost
 ```
 
-Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We used REST in favor of gRPC because it is the simplest to setup. Inside the models directory there are three exported models from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
+Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. I used REST in favor of gRPC because it is the simplest to setup. Inside the models directory there are three exported models from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
 
 To check if the container is running properly:
 
@@ -117,7 +126,7 @@ docker ps
 > 7507a1d4e430        object-detect:latest   "tensorflow_model_se…"   15 seconds ago      Up 14 seconds                           object-detect
 ```
 
-Now that Tensorflow Serving is working correctly we can start detecting some objects! We can use Tensorflow Detection API with Tensorflow Serving or YoloV3.
+Now that Tensorflow Serving is working correctly we can start detecting some objects! You can use Tensorflow Detection API with Tensorflow Serving or YoloV3.
 
 ### Detecting Objects
 
@@ -128,8 +137,6 @@ pipenv shell
 ```
 
 Now we can execute the different Python scripts.
-
-**Note**: these scripts are linked to my setup of cameras. To link your cameras we propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file. We defined these parameters previously inside the config file.
 
 #### Tensorflow Object Detection API
 

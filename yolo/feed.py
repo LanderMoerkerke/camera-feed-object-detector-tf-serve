@@ -53,20 +53,10 @@ _COCO_FILE = './yolo/model/coco.names'
 _FROZEN_MODEL = './yolo/model/darknet_yolov3_tiny.pb'
 # _FROZEN_MODEL = './yolo/model/frozen_darknet_yolov3_model_tiny.pb'
 
-_NMS = True
 # min acc
 _CONF_THRESHOLD = 0.6
 # min intersaction
 _IOU_THRESHOLD = 0.5
-
-# config to remove unused area
-config_oprit = {
-    'start_x': 350,
-    'start_y': 0,
-    'width': 1570,
-    'height': 1080
-}
-
 
 # -------------------
 # INITIALISATION
