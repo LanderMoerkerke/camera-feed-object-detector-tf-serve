@@ -4,6 +4,22 @@
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+
+<!-- vim-markdown-toc GitLab -->
+
+* [Folder structure](#folder-structure)
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Tensorflow Serving](#tensorflow-serving)
+    * [Detecting Objects](#detecting-objects)
+        * [Tensorflow Object Detection API](#tensorflow-object-detection-api)
+        * [YoloV3](#yolov3)
+* [Contributing](#contributing)
+
+<!-- vim-markdown-toc -->
+
+
 ## Folder structure
 
     .
@@ -133,8 +149,8 @@ python yolo/feed.py
 
 ## Contributing
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
+1. Fork it (<https://github.com/MoerkerkeLander/camera-feed-object-detector-tf-serve>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request``
+5. Create a new Pull Request
