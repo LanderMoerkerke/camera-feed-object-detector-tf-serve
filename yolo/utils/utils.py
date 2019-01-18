@@ -228,18 +228,24 @@ def load_coco_names(file_name):
     return names
 
 
-def draw_boxes(boxes, img, cls_names, detection_size, is_letter_box_image):
+def draw_boxes(boxes, img, cls_names, detection_size, is_letter_box_image, width=2):
     draw = ImageDraw.Draw(img)
-
     for cls, bboxs in boxes.items():
         color = tuple(np.random.randint(0, 256, 3))
         for box, score in bboxs:
             box = convert_to_original_size(box, np.array(detection_size),
                                            np.array(img.size),
                                            is_letter_box_image)
-            draw.rectangle(box, outline=color)
+            draw_rectangle(draw, (box[:2], box[2:]), color, width)
             draw.text(box[:2], '{} {:.2f}%'.format(
                 cls_names[cls], score * 100), fill=color)
+
+
+def draw_rectangle(draw, coordinates, color, width=1):
+    for i in range(width):
+        rect_start = (coordinates[0][0] - i, coordinates[0][1] - i)
+        rect_end = (coordinates[1][0] + i, coordinates[1][1] + i)
+        draw.rectangle((rect_start, rect_end), outline=color)
 
 
 def convert_to_original_size(box, size, original_size, is_letter_box_image):

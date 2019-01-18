@@ -1,5 +1,4 @@
-# Config
-config.ini
+yolo/model/darknet_yolov3.pb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -5,8 +5,10 @@ import threading
 import queue
 import numpy as np
 import tensorflow as tf
+import configparser
 from PIL import Image
-from utils.utils import load_coco_names, draw_boxes, get_boxes_and_inputs, get_boxes_and_inputs_pb, non_max_suppression, \
+from utils.utils import load_coco_names, draw_boxes, \
+    get_boxes_and_inputs_pb, non_max_suppression, \
     load_graph, letter_box_image
 
 # -------------------
@@ -21,7 +23,7 @@ def convert_cv_to_pil(frame):
 
 
 def resize_pil_image(image):
-    img_resized = letter_box_image(image, _INPUT_SIZE, _INPUT_SIZE, 128)
+    img_resized = letter_box_image(image, _INPUT_SIZE[0], _INPUT_SIZE[1], 128)
     return img_resized.astype(np.float32)
 
 
@@ -33,38 +35,43 @@ def preprocess_frame(frame):
 
 
 # ------------------
+# CONFIGURATION
+# ------------------
+
+_CONFIG_FILE = "config.ini"
+
+config = configparser.ConfigParser()
+config.read(_CONFIG_FILE)
+
+# YOLO
+_INPUT_SIZE = (
+    int(config["Yolo"]["input_height"]),
+    int(config["Yolo"]["input_width"])
+)
+
+_COCO_FILE = './yolo/model/coco.names'
+_FROZEN_MODEL = config["Yolo"]["yolo_model"]
+
+# min acc
+_CONF_THRESHOLD = float(config["Yolo"]["confidence_threshold"])
+
+# min intersaction
+_IOU_THRESHOLD =  float(config["Yolo"]["intersection_over_union"])
+
+
+# ------------------
 # VIDEO FEED URL
 # ------------------
 
-_URL_OPRIT = 'rtsp://Bezoeker:Test123@192.168.0.60:88/videoMain'
-_URL_OPRIT_PUBLIC = 'rtsp://Bezoeker:Test123@localhost:8888/videoMain'
-# _URL_OPRIT = 'rtsp://Bezoeker:Test123@localhost:8888/videoMain'
-_URL_VOORDEUR = 'rtsp://Bezoeker:Test123@192.168.0.61:88/videoMain'
-_URL_VOORDEUR_PUBLIC = 'rtsp://Bezoeker:Test123@localhost:8889/videoSub'
+_DETECTION_SOURCE = config["General"]["detection_source"]
 
-
-# ------------------
-# SETTINGS
-# ------------------
-
-# YOLO
-_INPUT_SIZE = 416
-_COCO_FILE = './yolo/model/coco.names'
-_FROZEN_MODEL = './yolo/model/darknet_yolov3_tiny.pb'
-# _FROZEN_MODEL = './yolo/model/frozen_darknet_yolov3_model_tiny.pb'
-
-# min acc
-_CONF_THRESHOLD = 0.6
-# min intersaction
-_IOU_THRESHOLD = 0.5
 
 # -------------------
 # INITIALISATION
 # -------------------
 
 cap = cv2.VideoCapture(
-    # _URL_OPRIT_PUBLIC
-    _URL_VOORDEUR_PUBLIC
+    _DETECTION_SOURCE
 )
 
 if not cap.isOpened():
@@ -133,13 +140,20 @@ with tf.Session(graph=frozen_graph) as sess:
         print("Amount of seconds to predict:", t1 - t0)
 
         # non max supression
-        filtered_boxes = non_max_suppression(detected_boxes,
-                                             confidence_threshold=_CONF_THRESHOLD,
-                                             iou_threshold=_IOU_THRESHOLD)
-        # print("Predictions found in {:.2f}s".format(time.time() - t0))
+        filtered_boxes = non_max_suppression(
+            detected_boxes,
+            confidence_threshold=_CONF_THRESHOLD,
+            iou_threshold=_IOU_THRESHOLD
+        )
 
-        draw_boxes(filtered_boxes, img, classes,
-                   (_INPUT_SIZE, _INPUT_SIZE), True)
+        draw_boxes(
+            filtered_boxes,
+            img,
+            classes,
+            _INPUT_SIZE,
+            True,
+            width=2
+        )
 
         open_cv_image = np.array(img)
         open_cv_image = cv2.cvtColor(open_cv_image, cv2.COLOR_RGB2BGR)
