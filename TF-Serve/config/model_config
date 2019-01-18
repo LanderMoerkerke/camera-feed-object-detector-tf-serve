@@ -1,0 +1,26 @@
+model_config_list {
+  config {
+    name: 'faster_rcnn_inception_v2'
+    base_path: '/models/faster_rcnn_inception_v2/'
+    model_platform: "tensorflow"
+    model_version_policy: {
+        all: {}
+    }
+  }
+  config {
+    name: 'mask_rcnn_inception_v2'
+    base_path: '/models/mask_rcnn_inception_v2/'
+    model_platform: "tensorflow"
+    model_version_policy: {
+        all: {}
+    }
+  }
+  config {
+    name: 'ssd_mobilenet_v1_coco'
+    base_path: '/models/ssd_mobilenet_v1_coco/'
+    model_platform: "tensorflow"
+    model_version_policy: {
+        all: {}
+    }
+  }
+}

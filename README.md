@@ -21,6 +21,8 @@ Luckily all these Python packages are all declared inside a Pipenv.
 
 ## Installation
 
+### General
+
 Clone this repo:
 
 ```bash
@@ -40,7 +42,7 @@ To setup Pipenv and install all the dependencies:
 pipenv install -d
 ```
 
-All the Python packages and Python itself should now be ready installed inside an virtual environment.
+All the Python packages and Python itself should now be installed inside an virtual environment.
 
 
 ## Usage
@@ -51,6 +53,13 @@ Firstly, enter the virtual environment:
 pipenv shell
 ```
 
+### Tensorflow Serving
+
+Install Docker.
+
+
+
+### General
 
 ## TensorFlow Detection API
 
