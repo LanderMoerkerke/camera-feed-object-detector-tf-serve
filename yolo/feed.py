@@ -49,9 +49,9 @@ _URL_VOORDEUR_PUBLIC = 'rtsp://Bezoeker:Test123@localhost:8889/videoSub'
 
 # YOLO
 _INPUT_SIZE = 416
-_COCO_FILE = './model/coco.names'
-_FROZEN_MODEL = './model/darknet_yolov3_tiny.pb'
-# _FROZEN_MODEL = './model/frozen_darknet_yolov3_model_tiny.pb'
+_COCO_FILE = './yolo/model/coco.names'
+_FROZEN_MODEL = './yolo/model/darknet_yolov3_tiny.pb'
+# _FROZEN_MODEL = './yolo/model/frozen_darknet_yolov3_model_tiny.pb'
 
 _NMS = True
 # min acc

@@ -40,7 +40,7 @@
     │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
     │
     ├── Pipfile                             # Defenition of our Python environment
-    └── config                              # Defenitions of the used parameters
+    └── config.ini                          # Global defenitions of the used parameters
 
 ## Dependencies
 
@@ -91,8 +91,7 @@ Install [Docker](https://www.docker.com/products/docker-desktop).
 Build the Docker image using the configurations inside the Dockerfile. The name of the image is object-detect.
 
 ```bash
-cd tf-serve
-docker build -t object-detect .
+docker build -t object-detect ./tf-serve
 ```
 
 Run the Docker image.
@@ -114,8 +113,8 @@ To check if the container is running properly:
 docker ps
 
 # OUTPUT:
-> CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-> fb18e78e71aa        object-detect       "tensorflow_model_se…"   11 seconds ago      Up 10 seconds                           object-detect
+> CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES
+> 7507a1d4e430        object-detect:latest   "tensorflow_model_se…"   15 seconds ago      Up 14 seconds                           object-detect
 ```
 
 Now that Tensorflow Serving is working correctly we can start detecting some objects! We can use Tensorflow Detection API with Tensorflow Serving or YoloV3.
