@@ -1,3 +1,4 @@
+import configparser
 import cv2
 import numpy as np
 import pickle
@@ -35,34 +36,33 @@ def preprocess_frame(frame):
     payload = {"instances": preprocessed_img.tolist()}
     return frame, preprocessed_img, payload
 
+
+# ------------------
+# CONFIGURATION
+# ------------------
+
+_CONFIG_FILE = "config.ini"
+
+config = configparser.ConfigParser()
+config.read(_CONFIG_FILE)
+
+_TF_SERVING_URL = config["Tensorflow"]["tf_serving_url"]
+_FILE_LABELS = "coco"
+
+
 # ------------------
 # VIDEO FEED URL
 # ------------------
 
+_DETECTION_SOURCE = config["General"]["detection_source"]
 
-_URL_OPRIT = 'rtsp://Bezoeker:Test123@192.168.0.60:88/videoMain'
-_URL_OPRIT_PUBLIC = 'rtsp://Bezoeker:Test123@localhost:8888/videoMain'
-
-_URL_VOORDEUR = 'rtsp://Bezoeker:Test123@192.168.0.61:88/videoMain'
-_URL_VOORDEUR_PUBLIC = 'rtsp://Bezoeker:Test123@localhost:8889/videoSub'
-_PATH_VIDEO = "/mnt/ssd/Oprit/20181123AM-1-Afzagen/Oprit-20181123-083146-1542958306.mp4"
-
-
-# ------------------
-# SETTINGS
-# ------------------
-
-_FILE_LABELS = "coco"
 
 # -------------------
 # INITIALISATION
 # -------------------
 
 cap = cv2.VideoCapture(
-    # _URL_OPRIT_PUBLIC
-    # _URL_OPRIT
-    _PATH_VIDEO
-    # _URL_VOORDEUR_PUBLIC
+    _DETECTION_SOURCE
 )
 
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -163,15 +163,13 @@ while(True):
 
     t0 = time.time()
     res = requests.post(
-        # "http://localhost:8501/v1/models/mask_rcnn_inception_v2:predict",
-        # "http://172.17.0.2:8501/v1/models/faster_rcnn_inception_v2:predict",
-        "http://localhost:8501/v1/models/ssd_mobilenet_v1_coco:predict",
+        _TF_SERVING_URL,
         json=payload
     )
     print("Amount of seconds to predict:", time.time() - t0)
 
     if (res.status_code == 400):
-        # print("Error:", res.text)
+        print("Error:", res.text)
         pass
     else:
         t0 = time.time()
