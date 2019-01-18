@@ -16,6 +16,7 @@ This build is based on Tensorflow Object Detection API which depends on the foll
 *   Tensorflow (>=1.9.0)
 *   OpenCV
 *   Pipenv
+*   Docker
 
 Luckily all these Python packages are all declared inside a Pipenv.
 
@@ -55,9 +56,20 @@ pipenv shell
 
 ### Tensorflow Serving
 
-Install Docker.
+Install [Docker](https://www.docker.com/products/docker-desktop).
 
+Build the Docker image using the Dockerfile. The name of the image is object-detect.
 
+```bash
+cd TF-Serve
+docker build -t object-detect .
+```
+
+Run the Docker image.
+
+```bash
+docker run object-detect
+```
 
 ### General
 
@@ -79,13 +91,8 @@ cd tensorflow-models/research/object_detection
 
 Follow the installation guide inside the repo.
 
-p3 object_detection/export_inference_graph.py -input_type image_tensor --pipeline_config_path /home/lander/Documents/Howest/3NMCT/S5/Project_IV/Project/models/tf-objection-api/mask_rcnn_inception_v2_coco_2018_01_28/pipeline.config --trained_checkpoint_prefix /home/lander/Documents/Howest/3NMCT/S5/Project_IV/Project/models/tf-objection-api/mask_rcnn_inception_v2_coco_2018_01_28/model.ckpt --output_directory ./detector2
 
 ## Run TF serve
-
-### Perticular model
-
-docker run -p 8501:8501 --mount type=bind,source=$PWD/mask_rcnn_inception_v2/,target=/models/half_plus_two -e MODEL_NAME=half_plus_two -t tensorflow/serving:latest
 
 ### Multiple models
 
