@@ -1,15 +1,17 @@
 # Camera feed object detector using Tensorflow Serving
+> Program to detect objects using Tensorflow Detection API and YOLO on a video stream. The scripts are written in Python3. For YoloV3, the model is stored locally so we don't need to utilize Tensorflow Serving.
 
-Program to detect objects using Tensorflow Detection API and YOLO on a video stream. The scripts are written in Python3.
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+
 
 ## Folder structure
 
     .
     ├── object_detection                    # The actual code to detect objects
-    │   ├── feed.py                         # Gets a video feed, predicts ands shows the detections
     │   ├── core                            # Helper functions from Tensorflow Detection API
     │   ├── data                            # Extra content (now Pickle of coco categories)
-    │   └── utils                           # Helper functions from Tensorflow Detection API
+    │   ├── utils                           # Helper functions from Tensorflow Detection API
+    │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
     │
     ├── tf_serve                            # Dockerfile and models for Tensorflow Serving
     │   ├── config                          # Configs
@@ -24,7 +26,9 @@ Program to detect objects using Tensorflow Detection API and YOLO on a video str
     │   ├── utils                           # Helper functions from TODO
     |   |   └── utils.py                    # Functions to create detection boxes
     │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
-
+    │
+    ├── Pipfile                             # Defenition of our Python environment
+    └── config                              # Defenition of our Python environment
 
 ## Dependencies
 
@@ -90,55 +94,47 @@ Run the Docker image.
 docker run --name object-detect -h 0.0.0.0 --network="host" --rm object-detect:latest
 ```
 
-Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We chose for REST because it is the simplest to setup. Inside the models directory there are three exported models. These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
+Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We chose for REST because it is the simplest to setup. Inside the models directory there are three exported models from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).. These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
 
 To check if the container is running properly:
 
 ```bash
 docker ps
 
-
+# OUTPUT:
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 fb18e78e71aa        object-detect       "tensorflow_model_se…"   11 seconds ago      Up 10 seconds                           object-detect
 ```
 
+Now that Tensorflow Serving is working correctly we can start detecting some objects! We can use Tensorflow Detection API with Tensorflow Serving or YoloV3.
 
-
-### Object detection script
+### Object Detect
 
 Firstly, enter the virtual environment:
 
 ```bash
+cd camera-feed-object-detector-tf-serve
 pipenv shell
 ```
 
-Now we can excecute the different Python scripts. To
+Now we can execute the different Python scripts. **Note**: these scripts are linked to my setup of cameras. To link your cameras we propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file.
 
-
-### General
-
-## TensorFlow Detection API
-
-Convert model from [ zoo ](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) to a TensorFlow Serving model.
-
-First download a model from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).
+#### Tensorflow Object Detection API
 
 ```bash
-wget "http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz"
-tar -xvf ssd_mobilenet_v1_coco_2018_01_28.tar.gz
+python object_detection/feed.py
 ```
+
+#### YoloV3
 
 ```bash
-git clone https://github.com/tensorflow/models.git tensorflow-models
-cd tensorflow-models/research/object_detection
+python yolo/feed.py
 ```
 
-Follow the installation guide inside the repo.
+## Contributing
 
-
-## Run TF serve
-
-### Multiple models
-
-- Create config file
-- Create Dockerfile with all the instructions
+1. Fork it (<https://github.com/yourname/yourproject/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request``
