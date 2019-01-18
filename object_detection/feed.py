@@ -162,7 +162,7 @@ while(True):
 
     t0 = time.time()
     res = requests.post(
-        "http://172.17.0.2:8501/v1/models/mask_rcnn_inception_v2:predict",
+        "http://localhost:8501/v1/models/mask_rcnn_inception_v2:predict",
         # "http://172.17.0.2:8501/v1/models/faster_rcnn_inception_v2:predict",
         # "http://172.17.0.2:8501/v1/models/ssd_mobilenet_v1_coco:predict",
         json=payload
