@@ -35,7 +35,7 @@
     │   ├── model                           # Modelfiles
     |   |   ├── coco.names                  # Coco category names
     |   |   └── darknet_yolov3_tiny.pb      # Converted model from YoloV3
-    │   ├── utils                           # Helper functions from [Paweł Kapica](https://github.com/mystic123/tensorflow-yolo-v3)
+    │   ├── utils                           # Helper functions from Paweł Kapica
     |   |   └── utils.py                    # Functions to create detection boxes
     │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
     │
