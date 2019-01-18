@@ -107,16 +107,16 @@ docker ps
 
 Now that Tensorflow Serving is working correctly we can start detecting some objects! We can use Tensorflow Detection API with Tensorflow Serving or YoloV3.
 
-### Object Detect
+### Detecting Objects
 
-Firstly, enter the virtual environment:
+Firstly, enter the virtual environment inside the root of the repository:
 
 ```bash
-cd camera-feed-object-detector-tf-serve
 pipenv shell
 ```
 
-Now we can execute the different Python scripts. **Note**: these scripts are linked to my setup of cameras. To link your cameras we propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file.
+Now we can execute the different Python scripts.
+**Note**: these scripts are linked to my setup of cameras. To link your cameras we propose using a feed that uses the [RTSP protocol](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) or you can use a video file.
 
 #### Tensorflow Object Detection API
 
