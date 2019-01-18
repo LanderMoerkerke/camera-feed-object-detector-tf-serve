@@ -9,12 +9,10 @@ contextlib2 = "*"
 jupyter = "*"
 
 [packages]
+matplotlib = "*"
 tensorflow = "*"
-tensorflow-serving-api = "*"
-tqdm = "*"
 ipykernel = "*"
 pillow = "*"
-absl-py = "*"
 opencv-python = "*"
 requests = "*"
 

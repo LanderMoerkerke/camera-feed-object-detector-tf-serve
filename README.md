@@ -6,14 +6,11 @@ Program to detect objects using Tensorflow Detection API and YOLO on a video str
 
 This build is based on Tensorflow Object Detection API which depends on the following libraries:
 
-*   Protobuf 3.0.0
-*   Python-tk
 *   Pillow
 *   Jupyter notebook
 *   Matplotlib
-*   Cython
-*   Contextlib2
 *   Tensorflow (>=1.9.0)
+*   Requests
 *   OpenCV
 *   Pipenv
 *   Docker
@@ -48,12 +45,6 @@ All the Python packages and Python itself should now be installed inside an virt
 
 ## Usage
 
-Firstly, enter the virtual environment:
-
-```bash
-pipenv shell
-```
-
 ### Tensorflow Serving
 
 Install [Docker](https://www.docker.com/products/docker-desktop).
@@ -70,6 +61,17 @@ Run the Docker image.
 ```bash
 docker run object-detect
 ```
+
+### Object detection script
+
+Firstly, enter the virtual environment:
+
+```bash
+pipenv shell
+```
+
+Now we can excecute the different Python scripts. To
+
 
 ### General
 
