@@ -58,15 +58,15 @@ Convert model from [ zoo ](https://github.com/tensorflow/models/blob/master/rese
 
 First download a model from the [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).
 
-"""bash
+```bash
 wget "http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz"
 tar -xvf ssd_mobilenet_v1_coco_2018_01_28.tar.gz
-"""
+```
 
-"""bash
+```bash
 git clone https://github.com/tensorflow/models.git tensorflow-models
 cd tensorflow-models/research/object_detection
-"""
+```
 
 Follow the installation guide inside the repo.
 
