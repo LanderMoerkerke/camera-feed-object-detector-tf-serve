@@ -83,7 +83,11 @@ docker build -t object-detect .
 Run the Docker image.
 
 ```bash
-docker run object-detect
+# --name        For easy referencing this container
+# --network     Setup network as host
+# --rm          Removes container when it is stopped
+# -h            Setup hostname, so we can access it using localhost
+docker run --name object-detect -h 0.0.0.0 --network="host" --rm object-detect:latest
 ```
 
 Now Tensorflow Serving is running inside a Docker container. We can access it by sending a REST request or a gRPC call. We chose for REST because it is the simplest to setup. Inside the models directory there are three exported models. These are converted using the [export_inference_graph.py](https://github.com/tensorflow/models/blob/master/research/object_detection/export_inference_graph.py) from the Tensorflow Object Detection API.
