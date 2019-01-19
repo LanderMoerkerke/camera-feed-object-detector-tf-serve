@@ -13,11 +13,17 @@
 -   [Dependencies](#dependencies)
 -   [Installation](#installation)
 -   [Usage](#usage)
+    -   [Config file](#config-file)
     -   [Tensorflow Serving](#tensorflow-serving)
     -   [Detecting Objects](#detecting-objects)
         -   [Tensorflow Object Detection API](#tensorflow-object-detection-api)
         -   [YoloV3](#yolov3)
 -   [Contributing](#contributing)
+-   [Sources](#sources)
+    -   [COCO](#coco)
+    -   [Tensorflow Serving](#tensorflow-serving-1)
+    -   [Yolo](#yolo)
+    -   [Tensorflow Object Detection API](#tensorflow-object-detection-api-1)
 
 ## Folder structure
 
@@ -189,7 +195,8 @@ python yolo/feed.py
 -   [TensorFlow Object Detection API tutorial / Daniel Stan - Medium](https://medium.com/@WuStangDan/step-by-step-tensorflow-object-detection-api-tutorial-part-1-selecting-a-model-a02b6aabe39e)
 -   [Deploy TensorFlow object detection model / Pierre Paci - Medium](https://medium.com/@pierrepaci/deploy-tensorflow-object-detection-model-in-less-than-5-minutes-604e6bb0bb04)
 
-<!-- ## Other less relevant sources
+<!--
+## Other less relevant sources
 
 ### Deep learning
 
@@ -210,4 +217,5 @@ python yolo/feed.py
 
 ### SSH tunnel
 
--   [SSH Tunnel - SSH](https://www.ssh.com/ssh/tunneling/example)) -->
+-   [SSH Tunnel - SSH](https://www.ssh.com/ssh/tunneling/example))
+-->
