@@ -1,4 +1,5 @@
 # Camera feed object detector using Tensorflow Serving
+
 > Program to detect objects using Tensorflow Detection API and YOLO on a video stream. The scripts are written in Python3. For YoloV3, the model is stored locally so we don't need to utilize Tensorflow Serving.
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
@@ -8,15 +9,15 @@
 
 ## Table of Contents
 
-* [Folder structure](#folder-structure)
-* [Dependencies](#dependencies)
-* [Installation](#installation)
-* [Usage](#usage)
-    * [Tensorflow Serving](#tensorflow-serving)
-    * [Detecting Objects](#detecting-objects)
-        * [Tensorflow Object Detection API](#tensorflow-object-detection-api)
-        * [YoloV3](#yolov3)
-* [Contributing](#contributing)
+-   [Folder structure](#folder-structure)
+-   [Dependencies](#dependencies)
+-   [Installation](#installation)
+-   [Usage](#usage)
+    -   [Tensorflow Serving](#tensorflow-serving)
+    -   [Detecting Objects](#detecting-objects)
+        -   [Tensorflow Object Detection API](#tensorflow-object-detection-api)
+        -   [YoloV3](#yolov3)
+-   [Contributing](#contributing)
 
 ## Folder structure
 
@@ -48,15 +49,15 @@
 
 This build is based on Tensorflow Object Detection API which depends on the following libraries:
 
-- Python
-    *   Pillow
-    *   Jupyter notebook
-    *   Matplotlib
-    *   Tensorflow (>=1.9.0)
-    *   Requests
-    *   OpenCV
-    *   Pipenv
-- Docker
+-   Python
+    -   Pillow
+    -   Jupyter notebook
+    -   Matplotlib
+    -   Tensorflow (>=1.9.0)
+    -   Requests
+    -   OpenCV
+    -   Pipenv
+-   Docker
 
 Luckily all these Python packages are all declared inside a Pipenv.
 
@@ -82,7 +83,6 @@ pipenv install -d
 ```
 
 All the Python packages and the correct version of Python itself (3.6) should now be installed inside an virtual environment.
-
 
 ## Usage
 
@@ -154,8 +154,8 @@ python yolo/feed.py
 
 ## Contributing
 
-1. Fork it (<https://github.com/MoerkerkeLander/camera-feed-object-detector-tf-serve>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+1.  Fork it (<https://github.com/MoerkerkeLander/camera-feed-object-detector-tf-serve>)
+2.  Create your feature branch (`git checkout -b feature/fooBar`)
+3.  Commit your changes (`git commit -am 'Add some fooBar'`)
+4.  Push to the branch (`git push origin feature/fooBar`)
+5.  Create a new Pull Request
