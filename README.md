@@ -24,7 +24,7 @@
     .
     ├── object_detection                    # The actual code to detect objects
     │   ├── core                            # Helper functions from Tensorflow Detection API
-    │   ├── data                            # Extra content (now Pickle of coco categories)
+    │   ├── data                            # Extra content (now Pickle of COCO categories)
     │   ├── utils                           # Helper functions from Tensorflow Detection API
     │   └── feed.py                         # Gets a video feed, predicts ands shows the detections
     │
@@ -36,7 +36,7 @@
     │
     ├── yolo                                # YOLO object detection, without Tensorflow Serving
     │   ├── model                           # Modelfiles
-    |   |   ├── coco.names                  # Coco category names
+    |   |   ├── coco.names                  # COCO category names
     |   |   └── darknet_yolov3_tiny.pb      # Converted model from YoloV3
     │   ├── utils                           # Helper functions from Paweł Kapica
     |   |   └── utils.py                    # Functions to create detection boxes
