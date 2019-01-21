@@ -7,6 +7,8 @@ import requests
 import sys
 import threading
 import time
+from pprint import pprint
+from utils import output_utlis as out_util
 from utils import visualization_utils as vis_util
 
 # -------------------
@@ -48,7 +50,8 @@ config.read(_CONFIG_FILE)
 
 _TF_SERVING_URL = config["Tensorflow"]["tf_serving_url"]
 _FILE_LABELS = "coco"
-
+_THRESHOLD = 0.5
+_SAVE_DETECTION = config["Tensorflow"]["save_detection"]
 
 # ------------------
 # VIDEO FEED URL
@@ -67,6 +70,9 @@ cap = cv2.VideoCapture(
 
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
+ret, frame = cap.read(1)
+_HEIGHT, _WIDTH, _ = frame.shape
+
 if not cap.isOpened():
     print("Cannot read video stream, exiting...")
     sys.exit(1)
@@ -78,7 +84,7 @@ classes = load_obj(_FILE_LABELS)
 # QUEUE & THREAD
 # ------------------
 
-frame_queue = queue.LifoQueue(1)
+frame_queue = queue.LifoQueue(5)
 
 lock = threading.Lock()
 frame_counter = 0
@@ -110,29 +116,6 @@ def retrieve_frames(cap):
         frame_counter += 1
         lock.release()
 
-# def retrieve_frames(cap):
-#     global frame_counter
-#
-#     print("Retrieving frames")
-#     while retrieving_frames:
-#         lock.acquire()
-#         cap.set(1, frame_counter)
-#         lock.release()
-#
-#         t0 = time.time()
-#         ret, frame = cap.read(1)
-#         print("Amount of seconds to get frame:", time.time() - t0)
-#
-#         print(f"[id: {frame_counter}] Got frame")
-#         # if frame:
-#         frame_queue.put(preprocess_frame(frame))
-#         print(f"[id: {frame_counter}] Processed frame")
-#         # time.sleep(0.2)
-#
-#         lock.acquire()
-#         frame_counter += 1
-#         lock.release()
-
 
 for i in range(1):
     retrieving_frames = True
@@ -141,6 +124,7 @@ for i in range(1):
     )
 
     th_retrieve_frames.start()
+    time.sleep(1)
 
 # -------------------
 # PROCESSING
@@ -193,6 +177,11 @@ while(True):
     t0 = time.time()
     cv2.imshow('frame', img_processed[0])
     print("Amount of seconds to show image:", time.time() - t0)
+
+    detections = out_util.convert_output_to_detections(
+        output_dict, classes, _THRESHOLD, _WIDTH, _HEIGHT)
+
+    print(detections)
 
     # close windows when pressing 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
