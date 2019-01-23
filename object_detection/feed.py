@@ -1,3 +1,4 @@
+import os
 import configparser
 import cv2
 import numpy as np
@@ -7,6 +8,7 @@ import requests
 import sys
 import threading
 import time
+import datetime
 from pprint import pprint
 from utils import output_utlis as out_util
 from utils import visualization_utils as vis_util
@@ -39,6 +41,18 @@ def preprocess_frame(frame):
     return frame, preprocessed_img, payload
 
 
+def save_detection(classname, image):
+    """Saves a image
+    :classname: name of the class
+    :image: image to save
+    """
+
+    date = f"{datetime.datetime.now():%Y%m%d-%H%M%S}"
+    os.makedirs(f"{_SAVE_DIR}/{classname}", exist_ok=True)
+
+    return cv2.imwrite(f"{_SAVE_DIR}/{classname}/{date}-{classname}.jpg", frame)
+
+
 # ------------------
 # CONFIGURATION
 # ------------------
@@ -51,7 +65,10 @@ config.read(_CONFIG_FILE)
 _TF_SERVING_URL = config["Tensorflow"]["tf_serving_url"]
 _FILE_LABELS = "coco"
 _THRESHOLD = 0.5
-_SAVE_DETECTION = config["Tensorflow"]["save_detection"]
+
+_SAVE_DETECTION = config["Tensorflow"].getboolean("save_detection")
+_SAVE_DIR = config["Tensorflow"]["save_dir"]
+
 
 # ------------------
 # VIDEO FEED URL
@@ -80,8 +97,9 @@ if not cap.isOpened():
 # load labels
 classes = load_obj(_FILE_LABELS)
 
+
 # ------------------
-# QUEUE & THREAD
+# QUEUE & THREADING RETRIEVING
 # ------------------
 
 frame_queue = queue.LifoQueue(5)
@@ -120,11 +138,59 @@ def retrieve_frames(cap):
 for i in range(1):
     retrieving_frames = True
     th_retrieve_frames = threading.Thread(
-        target=retrieve_frames, name=f"thread-{i}", kwargs={"cap": cap}
+        target=retrieve_frames,
+        name=f"thread-retrieve-{i}",
+        kwargs={"cap": cap},
+        daemon=True
     )
 
     th_retrieve_frames.start()
     time.sleep(1)
+
+
+# ------------------
+# QUEUE & THREADING DETECTIONS
+# ------------------
+
+detection_queue = queue.Queue()
+
+
+def handle_detections():
+    vehicles = [
+        "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
+        "skateboard"
+    ]
+
+    animals = [
+        "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear",
+        "zebra", "giraffe"
+    ]
+
+    while True:
+        frame, detections = detection_queue.get()
+        print(f"Got detections at {time.time()}:")
+        pprint(detections)
+
+        for detection in detections:
+            if detection["class"] in "person":
+                if _SAVE_DETECTION:
+                    save_detection("person", frame)
+            elif detection["class"] in vehicles:
+                if _SAVE_DETECTION:
+                    save_detection("vehicle", frame)
+            elif detection["class"] in animals:
+                if _SAVE_DETECTION:
+                    save_detection("animal", frame)
+        detection_queue.task_done()
+
+
+th_detections = threading.Thread(
+    target=handle_detections,
+    name=f"thread-detect-{i}",
+    daemon=True
+)
+
+th_detections.start()
 
 # -------------------
 # PROCESSING
@@ -134,7 +200,8 @@ print("Starting detection")
 while(True):
 
     # frame video file
-    print("New queue item. Amount of queue items:", frame_queue.qsize())
+    print("New frame queue item. Amount of frames in queue:",
+          frame_queue.qsize())
 
     frame, img_processed, payload = frame_queue.get()
     frame_queue.task_done()
@@ -146,10 +213,16 @@ while(True):
     # print("Amount of seconds to create payload:", time.time() - t0)
 
     t0 = time.time()
-    res = requests.post(
-        _TF_SERVING_URL,
-        json=payload
-    )
+    try:
+        res = requests.post(
+            _TF_SERVING_URL,
+            json=payload
+        )
+    except requests.exceptions.RequestException:
+        print("ERROR: Request error, did you start Tensorflow Serving?")
+        sys.exit()
+    except Exception as e:
+        raise e
     print("Amount of seconds to predict:", time.time() - t0)
 
     if (res.status_code == 400):
@@ -181,7 +254,7 @@ while(True):
     detections = out_util.convert_output_to_detections(
         output_dict, classes, _THRESHOLD, _WIDTH, _HEIGHT)
 
-    print(detections)
+    detection_queue.put((img_processed[0], detections))
 
     # close windows when pressing 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
