@@ -209,6 +209,8 @@ netstat -tulpn
 
 The local port you had chosen should be in the table with the SSH program name. I used port 8888.
 
+Once it all works, you can edit inside the detection_source inside the configfile to localhost with your LOCALPORT*.
+
 ## Contributing
 
 1.  Fork it (<https://github.com/MoerkerkeLander/camera-feed-object-detector-tf-serve>)
