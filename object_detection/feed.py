@@ -69,6 +69,7 @@ _THRESHOLD = 0.5
 _SAVE_DETECTION = config["Tensorflow"].getboolean("save_detection")
 _SAVE_DIR = config["Tensorflow"]["save_dir"]
 
+_SKIP_FRAMES = config["General"].getboolean("skip_frames")
 
 # ------------------
 # VIDEO FEED URL
@@ -118,17 +119,19 @@ def retrieve_frames(cap):
         print("Amount of seconds to get frame:", time.time() - t0)
 
         print(f"[id: {frame_counter}] Got frame")
-        # if frame:
-        frame_queue.put(preprocess_frame(frame))
-        print(f"[id: {frame_counter}] Processed frame")
-        # time.sleep(0.2)
 
-        while frame_queue.full():
+        if frame is None:
+            time.sleep(0.2)
+        else:
+            frame_queue.put(preprocess_frame(frame))
+            print(f"[id: {frame_counter}] Processed frame")
+
+        while frame_queue.full() and _SKIP_FRAMES:
+            # time.sleep(0.03)
             cap.grab()
             lock.acquire()
-            frame_counter += 1
+            frame_counter += 0
             lock.release()
-            # time.sleep(0.005)
 
         lock.acquire()
         frame_counter += 1
@@ -168,19 +171,20 @@ def handle_detections():
 
     while True:
         frame, detections = detection_queue.get()
-        print(f"Got detections at {time.time()}:")
-        pprint(detections)
+        if len(detections) > 0:
+            print(f"Got detections at {time.time()}:")
+            pprint(detections)
 
-        for detection in detections:
-            if detection["class"] in "person":
-                if _SAVE_DETECTION:
-                    save_detection(detection["class"], frame)
-            elif detection["class"] in vehicles:
-                if _SAVE_DETECTION:
-                    save_detection(detection["class"], frame)
-            elif detection["class"] in animals:
-                if _SAVE_DETECTION:
-                    save_detection(detection["class"], frame)
+            for detection in detections:
+                if detection["class"] in "person":
+                    if _SAVE_DETECTION:
+                        save_detection(detection["class"], frame)
+                elif detection["class"] in vehicles:
+                    if _SAVE_DETECTION:
+                        save_detection(detection["class"], frame)
+                elif detection["class"] in animals:
+                    if _SAVE_DETECTION:
+                        save_detection(detection["class"], frame)
         detection_queue.task_done()
 
 
@@ -263,6 +267,6 @@ while(True):
 
         # exit script
         print("Exiting script")
-        sys.exit(1)
+        sys.exit(0)
 
         break
