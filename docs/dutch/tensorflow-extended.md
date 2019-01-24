@@ -166,6 +166,10 @@ Doordat training gebeurt op historische batch processing en predictie op stream 
 
 ### Apache Beam
 
+Apache Beam is an open source unified programming model to define and execute data processing pipelines, including ETL, batch and stream (continuous) processing. It's SDK is used  by Google Cloud Dataflow.
+
+Bron: [Wikipedia: Apache Beam](https://en.wikipedia.org/wiki/Apache_Beam)
+
 ## Issues
 
 -   [Convert naar TF Serving](https://github.com/tensorflow/models/issues/1988)
