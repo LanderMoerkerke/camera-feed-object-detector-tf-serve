@@ -1,0 +1,13 @@
+#!/bin/sh
+# This script will create a portforward usin ssh
+# Give remote IP with a remote port, this script whill bind it
+# to the localport. Setup SSH on the server.
+
+REMOTEIP=192.168.0.2
+REMOTEPORT=88
+
+LOCALPORT=${1:-8888}
+
+echo "Forwarding $REMOTEIP to port $LOCALPORT"
+ssh -fNL $LOCALPORT:$REMOTEIP:$REMOTEPORT user@publicip
+echo -e "IP forwared \t http://localhost:$LOCALPORT"
