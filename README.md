@@ -9,21 +9,22 @@
 
 ## Table of Contents
 
--   [Folder structure](#folder-structure)
--   [Dependencies](#dependencies)
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Config file](#config-file)
-    -   [Tensorflow Serving](#tensorflow-serving)
-    -   [Detecting Objects](#detecting-objects)
-        -   [Tensorflow Object Detection API](#tensorflow-object-detection-api)
-        -   [YoloV3](#yolov3)
--   [Contributing](#contributing)
--   [Sources](#sources)
-    -   [COCO](#coco)
-    -   [Tensorflow Serving](#tensorflow-serving-1)
-    -   [Yolo](#yolo)
-    -   [Tensorflow Object Detection API](#tensorflow-object-detection-api-1)
+<!-- vim-markdown-toc GitLab -->
+
+* [Folder structure](#folder-structure)
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Config file](#config-file)
+    * [Tensorflow Serving](#tensorflow-serving)
+    * [Detecting Objects](#detecting-objects)
+        * [Tensorflow Object Detection API](#tensorflow-object-detection-api)
+        * [YoloV3](#yolov3)
+    * [Portforwarding](#portforwarding)
+* [Contributing](#contributing)
+* [Sources](#sources)
+
+<!-- vim-markdown-toc -->
 
 ## Folder structure
 
@@ -169,7 +170,7 @@ python yolo/feed.py
 
 Now you can detect objects using the IP address of your own camera, this can only be done locally inside your home network. I wrote a little script that portforwards your camera's IP and port to your local machine using SSH. If done correctly you can access your camera and its feed from your local machine without being on premise.
 
-*Note*: this will only work on Linux and MacOs, if you want to achieve the same thing on Windows, please follow the instructions on: [How to configure an SSH tunnel on Putty](https://blog.devolutions.net/2017/4/how-to-configure-an-ssh-tunnel-on-putty).
+_Note_: this will only work on Linux and MacOs, if you want to achieve the same thing on Windows, please follow the instructions on: [How to configure an SSH tunnel on Putty](https://blog.devolutions.net/2017/4/how-to-configure-an-ssh-tunnel-on-putty).
 
 To run the script from the root of the repository:
 
