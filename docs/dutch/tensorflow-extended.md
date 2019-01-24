@@ -45,6 +45,8 @@ Bron: [TensorFlow Extended paper](https://dl.acm.org/citation.cfm?id=3098021)
 
 ## TensorFlow Data Validation
 
+![TensorFlow Data Validation schema](https://cdn-images-1.medium.com/max/800/0*cpIN2bLExa8TWyws "TensorFlow Data Validation schema")
+
 TensorFlow Data Validation is een open-source library dat zorgt voor ontdekken, analyseren en valideren van data.
 
 Wanneer je data moet analyseren kan je dit nog op kleine schaal zelf implementeren maar naarmate de hoeveelheid data stijgt is dit quasi onmogelijk en een zeer tijdrovend proces. Bij grote hoeveelheden data wordt analyse geschaald over meerdere nodes, TensorFlow Data Validation speelt hier perfect op in.
@@ -77,6 +79,8 @@ Wat is TFDV:
 Niet echt, doordat TFDV vooral focust op het berekenen van beschrijvende statistiek is het toepassing bij object detectie geen meerwaarde. Bij een detector werken we met afbeeldingen hierbij is geven gemiddeldes en standaardafwijkingen geen bruikbare informatie.
 
 ## TensorFlow Transform
+
+![TensorFlow Transform schema](https://4.bp.blogspot.com/-RiIACpXC69Y/WK3XDY-vC-I/AAAAAAAABm0/jZQf7JIObyAUkNVqSr6L-3FqRWmRtLOrACLcB/s640/TFT%2Bfor%2BResearch%2BBlog%2BPost.png "TensorFlow Transform schema")
 
 TensorFlow Transform is een open-source library voor een preprocessing pipeline.
 
@@ -118,6 +122,8 @@ TensorFlow Model Analysis is een tool voor het evalueren van getrainde TensorFlo
 Ja, TensorFlow Model Analysis kan gebruikt worden op ieder TensorFlow model. De kracht van TFMA ligt hem vooral bij het gebruik van veel data om het model te testen. Om dit goed te doen maak je een aparte dataset om uw model te evalueren, deze moet verschillen van de trainingdata. Je zou het script kunnen uitbreiden zodat deze ook de snelheid van het model controleert. Dit vergt veel tijd maar is wel een meerwaarde bij grotere projecten.
 
 ## TensorFlow Serve
+
+![TensorFlow Serving schema](https://cdn-images-1.medium.com/max/1000/0*jr2i7FW3TtdQeh_D. "TensorFlow Serving schema")
 
 TensorFlow Serving is een open-source library voor het in productie stellen van modellen aan de hand van een server.
 
