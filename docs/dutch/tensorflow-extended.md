@@ -14,14 +14,18 @@
     * [Nadelen](#nadelen-1)
     * [Nuttig voor object detectie](#nuttig-voor-object-detectie-1)
 * [TensorFlow Model Analysis](#tensorflow-model-analysis)
-* [TensorFlow Serve](#tensorflow-serve)
     * [Voordelen](#voordelen-2)
     * [Nadelen](#nadelen-2)
     * [Nuttig voor object detectie](#nuttig-voor-object-detectie-2)
+* [TensorFlow Serve](#tensorflow-serve)
+    * [Voordelen](#voordelen-3)
+    * [Nadelen](#nadelen-3)
+    * [Nuttig voor object detectie](#nuttig-voor-object-detectie-3)
     * [Keuze gRPC of REST](#keuze-grpc-of-rest)
 * [Termen](#termen)
     * [Data drift](#data-drift)
     * [Training-serving skew](#training-serving-skew)
+    * [Apache Beam](#apache-beam)
 * [Issues](#issues)
 
 <!-- vim-markdown-toc -->
@@ -87,13 +91,31 @@ Doordat je deze acties kunt exporteren kan je deze gebruiken tijdens training en
 
 ### Nadelen
 
--   Python 2, door dat Apache Beam Python3 niet ondersteund
+-   Python 2, door dat Apache Beam Python 3 niet ondersteund
 
 ### Nuttig voor object detectie
 
 Op zich geen echte meerwaarde, we werken bij een object detectiesysteem niet met numerieke waarden maar met afbeeldingen. Tijdens het trainen en het serven van een model wordt er maar één berekening op de afbeeldingen uitgevoerd, normaliseren. De toepassing van TensorFlow Transform ligt vooral op het gebruik van meerdere calculaties.
 
 ## TensorFlow Model Analysis
+
+![Demo](https://www.tensorflow.org/tfx/model_analysis/images/tfma-slicing-metrics-browser.gif)
+
+TensorFlow Model Analysis is een tool voor het evalueren van getrainde TensorFlow modellen. Door middel van Apache Beam wordt het model gedistribueerd getest op veel data. TensorFlow Model Analysis zal dan metrics berekenen die de gebruiker kan raadplegen.
+
+### Voordelen
+
+-   Gedistribueerd
+-   Grafisch weergegeven
+
+### Nadelen
+
+-   Werkt enkel op TensorFlow modellen
+-   Python 2, door dat Apache Beam Python 3 niet ondersteund
+
+### Nuttig voor object detectie
+
+Ja, TensorFlow Model Analysis kan gebruikt worden op ieder TensorFlow model. De kracht van TFMA ligt hem vooral bij het gebruik van veel data om het model te testen. Om dit goed te doen maak je een aparte dataset om uw model te evalueren, deze moet verschillen van de trainingdata. Je zou het script kunnen uitbreiden zodat deze ook de snelheid van het model controleert. Dit vergt veel tijd maar is wel een meerwaarde bij grotere projecten.
 
 ## TensorFlow Serve
 
@@ -141,6 +163,8 @@ Bron: [CMS Wire](https://www.cmswire.com/big-data/big-datas-hidden-scourge-data-
 ### Training-serving skew
 
 Doordat training gebeurt op historische batch processing en predictie op stream processing werk je met twee verschillende systeem om data aan te leveren aan het model. Hierbij kan het gebeuren dat de verwerkte data anders is bij beide systemen. Dit noemt men training en serving skew.
+
+### Apache Beam
 
 ## Issues
 
