@@ -32,7 +32,7 @@ Bij het maken van een object detector zijn er natuurlijk enkele afwegingen te ma
 | Flexibeler                   | Flexibeler                                              | Sneller om op te zetten                  |
 | Enorm veel tijd innemen      | Veel tijd innemen                                       | Geen trainingstijd nodig                 |
 | Meer data nodig              | Minder data nodig                                       | Geen data nodig                          |
-| Zelf de patronen laten leren | Patronen zijn al grotendeels herkent                    | Patronen zijn al grotendeels herkent     |
+| Zelf de patronen laten leren | Patronen zijn al grotendeels herkend                    | Patronen zijn al grotendeels herkend     |
 | Zelf klasses kunnen kiezen   | Zelf klasses kunnen kiezen bovenop de voorgedefinieerde | Klasses zijn voorgedefinieerd            |
 
 **Conclusie:** zelf een model van scratch maken wordt niet gedaan. Deze vergt teveel tijd en de alternatieven zijn gewoonweg beter. Een voorgetraind netwerk gebruiken is een goede keuze wanneer je objecten moet detecteren die niet in de standaard klasses zitten. Je moet hier wel rekening houden dat het label werk en het trainingswerk wel arbeidsintensief zijn. Ik zal echter voor een voorgetraind netwerk kiezen. Mijn focus ligt op het maken van een persoonsdetector, de klasse persoon komt in de meest courante modellen voor en werken zeer goed.
