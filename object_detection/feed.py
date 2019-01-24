@@ -174,13 +174,13 @@ def handle_detections():
         for detection in detections:
             if detection["class"] in "person":
                 if _SAVE_DETECTION:
-                    save_detection("person", frame)
+                    save_detection(detection["class"], frame)
             elif detection["class"] in vehicles:
                 if _SAVE_DETECTION:
-                    save_detection("vehicle", frame)
+                    save_detection(detection["class"], frame)
             elif detection["class"] in animals:
                 if _SAVE_DETECTION:
-                    save_detection("animal", frame)
+                    save_detection(detection["class"], frame)
         detection_queue.task_done()
 
 
