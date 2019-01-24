@@ -165,6 +165,49 @@ python object_detection/feed.py
 python yolo/feed.py
 ```
 
+### Portforwarding
+
+Now you can detect objects using the IP address of your own camera, this can only be done locally inside your home network. I wrote a little script that portforwards your camera's IP and port to your local machine using SSH. If done correctly you can access your camera and its feed from your local machine without being on premise.
+
+*Note*: this will only work on Linux and MacOs, if you want to achieve the same thing on Windows, please follow the instructions on: [How to configure an SSH tunnel on Putty](https://blog.devolutions.net/2017/4/how-to-configure-an-ssh-tunnel-on-putty).
+
+To run the script from the root of the repository:
+
+```bash
+./scripts/tunnel-ip REMOTEIP REMOTEPORT LOCALPORT USER PUBLICIP
+```
+
+For example:
+
+```bash
+./scripts/tunnel-ip 192.168.0.60 88 8888 lander 8.8.8.8
+```
+
+When it's run successfully, you can check if it works:
+
+```bash
+# use sudo before the command if you want to see the program name
+netstat -tulpn
+
+# OUTPUT
+> Active Internet connections (only servers)
+> Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+> tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      424/cupsd
+> tcp6       0      0 :::8500                 :::*                    LISTEN      7568/tensorflow_mod
+> tcp6       0      0 :::8501                 :::*                    LISTEN      7568/tensorflow_mod
+> tcp6       0      0 ::1:631                 :::*                    LISTEN      424/cupsd
+> tcp6       0      0 ::1:8888                :::*                    LISTEN      31429/ssh
+> udp        0      0 0.0.0.0:5353            0.0.0.0:*                           413/avahi-daemon: r
+> udp        0      0 0.0.0.0:57012           0.0.0.0:*                           413/avahi-daemon: r
+> udp        0      0 0.0.0.0:68              0.0.0.0:*                           421/dhcpcd
+> udp        0      0 0.0.0.0:631             0.0.0.0:*                           478/cups-browsed
+> udp6       0      0 :::5353                 :::*                                413/avahi-daemon: r
+> udp6       0      0 :::47144                :::*                                413/avahi-daemon: r
+> udp6       0      0 :::546                  :::*                                421/dhcpcd
+```
+
+The local port you had chosen should be in the table with the SSH program name. I used port 8888.
+
 ## Contributing
 
 1.  Fork it (<https://github.com/MoerkerkeLander/camera-feed-object-detector-tf-serve>)
