@@ -131,8 +131,7 @@ Via REST of gRPC calls kan een client data sturen naar TensorFlow Serving, deze 
 
 Het opstellen van deze server gebeurt best via een Docker container, dit geeft de flexibiliteit om deze op ieder medium te laten draaien. Indien de requests te hoog zijn en je Docker conainer sputtert, kan je deze ook via Kubernetes laten schalen.
 
-Het grote voordeel van TensorFlow Serving is dat het model en de code die het model aanroept op verschillende servers staan. Dit zorgt ervoor dat wanneer je veel requests krijgt, je de model server kan laten schalen zonder dat de uitvoerende code - een website of dergelijke - ook mee
-schaalt.
+Het grote voordeel van TensorFlow Serving is dat het model en de code die het model aanroept op verschillende servers staan. Dit zorgt ervoor dat wanneer je veel requests krijgt, je de model server kan laten schalen zonder dat de uitvoerende code - een website of dergelijke - ook mee schaalt.
 
 ### Voordelen
 

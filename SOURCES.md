@@ -27,7 +27,7 @@
 
 ### SSH tunnel
 
--   [SSH Tunnel - SSH](https://www.ssh.com/ssh/tunneling/example))
+-   [SSH Tunnel - SSH](https://www.ssh.com/ssh/tunneling/example)
 
 ## Object detection
 
